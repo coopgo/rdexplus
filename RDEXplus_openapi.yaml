@@ -81,12 +81,12 @@ paths:
         description: Frequency of the expected carpoolers' journeys expected.
         schema:
           $ref: '#/components/schemas/frequency'
-      - name: departureDate
+      - name: date
         in: query
-        description: If `frequency=punctual` or `frequency=both`, `departureDate` specifies
+        description: If `frequency=punctual` or `frequency=both`, `date` specifies
           departure datetime using a UNIX UTC timestamp in seconds. If not specified,
           the timestamp of the request is considered the expected departure datetime.
-          If `frequency=regular`, `departureDate` specifies the beginning of the validity period
+          If `frequency=regular`, `date` specifies the beginning of the validity period
           for the regular journey.
         schema:
           type: integer
@@ -140,15 +140,9 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  journeys:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Journey'
-                  nbJourneys:
-                    type: integer
-                    description: Number of returned journeys (only if `type=line`).
+                type: array
+                items:
+                  $ref: '#/components/schemas/Journey'
         400:
           description: Bad request. Error code can be among  `invalid_input, invalid_uri, invalid_uuid, missing_mandatory_field, missing_required_query_parameter, no_post_data, no_put_data, too_late, undefined_error, unknown_user` .
           content:
@@ -484,24 +478,24 @@ components:
         details:
           type: string
           description: Free comment.
-        vehicle:
+        car:
           type: object
           properties:
             details:
               type: string
-              description: Details of the vehicle.
+              description: Details of the car.
             image:
               type: string
-              description: Image of the vehicle.
+              description: Image of the car.
             brand:
               type: string
-              description: Brand of the vehicle.
+              description: Brand of the car.
             model:
               type: string
-              description: Model of the vehicle.
+              description: Model of the car.
             color:
               type: string
-              description: Color of the vehicle.
+              description: Color of the car.
         frequency:
           $ref: '#/components/schemas/frequency'
         isRoundTrip:
@@ -577,10 +571,10 @@ components:
                 universalLink:
                   type: string
                   description: URI respecting iOS requirements to all opening of the mobile app on the screen presenting the specific journey.
-          
-        
-            
-          
+        nbJourneys:
+          type: integer
+          description: Number of returned journeys (only if `type=line`).
+
     Geopoint:
       type: "object"
       required:
